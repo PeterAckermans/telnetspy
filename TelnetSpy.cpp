@@ -737,14 +737,14 @@ void TelnetSpy::handle() {
 	}
     if (telnetServer->hasClient()) {
         if (client.connected()) {
-            WiFiClient rejectClient = telnetServer->available();
+            WiFiClient rejectClient = telnetServer->accept();  //available();
 			if (strlen(rejectMsg) > 0) {
 				rejectClient.write((const uint8_t*) rejectMsg, strlen(rejectMsg));
 			}
 			rejectClient.flush();
             rejectClient.stop();
         } else {
-            client = telnetServer->available();
+            client = telnetServer->accept(); //available();
 			if (strlen(welcomeMsg) > 0) {
 				client.write((const uint8_t*) welcomeMsg, strlen(welcomeMsg));
 			}

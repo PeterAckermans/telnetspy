@@ -272,6 +272,7 @@
 #define CRITCAL_SECTION_END portEXIT_CRITICAL(&AtomicMutex);
 #endif
 #include <WiFiClient.h>
+#include "rom/ets_sys.h"
 
 class TelnetSpy : public Stream {
 	public:

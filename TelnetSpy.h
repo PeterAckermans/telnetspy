@@ -333,7 +333,8 @@ class TelnetSpy : public Stream {
 		int peek(void) override;
 		int read(void) override;
 		int availableForWrite(void);
-		void flush(void) override;
+//		void clear(void) override;
+		void clear(void);
 		void debugWrite(uint8_t);
 		size_t write(uint8_t) override;
 		inline size_t write(unsigned long n) { return write((uint8_t) n); }

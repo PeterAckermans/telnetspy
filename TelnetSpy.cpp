@@ -98,7 +98,7 @@ void TelnetSpy::setPort(uint16_t portToUse) {
 	if (listening) {
 		if (client.connected()) {
             sendBlock();
-			client.flush();
+			client.clear();
 			client.stop();
 		}
 		if (connected && (callbackDisconnect != NULL)) {
@@ -408,13 +408,13 @@ int TelnetSpy::peek (void) {
 	return val;
 }
 
-void TelnetSpy::flush (void) {
+void TelnetSpy::clear (void) {
 	if (usedSer) {
 		usedSer->flush();
 	}
 	if (client.connected()) {
         sendBlock();
-        client.flush();
+        client.clear();
     }
 }
 
@@ -449,7 +449,7 @@ void TelnetSpy::end() {
 	}
 	if (client.connected()) {
         sendBlock();
-		client.flush();
+		client.clear();
 		client.stop();
 	}
 	if (connected && (callbackDisconnect != NULL)) {
@@ -637,7 +637,7 @@ void TelnetSpy::setCallbackOnDisconnect(void (*callback)()) {
 void TelnetSpy::disconnectClient() {
     if (client.connected()) {
         sendBlock();
-        client.flush();
+        client.clear();
         client.stop();
     }
     if (connected && (callbackDisconnect != NULL)) {
@@ -741,7 +741,7 @@ void TelnetSpy::handle() {
 			if (strlen(rejectMsg) > 0) {
 				rejectClient.write((const uint8_t*) rejectMsg, strlen(rejectMsg));
 			}
-			rejectClient.flush();
+			rejectClient.clear();
             rejectClient.stop();
         } else {
             client = telnetServer->accept(); //available();
@@ -764,7 +764,7 @@ void TelnetSpy::handle() {
     	if (connected) {
     		connected = false;
             sendBlock();
-        	client.flush();
+        	client.clear();
             client.stop();
 			pingRef = 0xFFFFFFFF;
 			waitRef = 0xFFFFFFFF;
